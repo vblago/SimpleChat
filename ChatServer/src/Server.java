@@ -21,7 +21,7 @@ public class Server extends Thread {
     public void run() {
         try {
             ServerSocket serverSocket = new ServerSocket(serverPort);
-            while(true) {
+            while (true) {
                 System.out.println("About to accept client connection...");
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Accepted connection from " + clientSocket);
@@ -32,5 +32,9 @@ public class Server extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void removeWorker(ServerWorker serverWorker) {
+        workerList.remove(serverWorker);
     }
 }
