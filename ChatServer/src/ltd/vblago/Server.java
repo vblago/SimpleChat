@@ -1,3 +1,5 @@
+package ltd.vblago;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -9,11 +11,11 @@ public class Server extends Thread {
 
     private ArrayList<ServerWorker> workerList = new ArrayList<>();
 
-    public Server(int serverPort) {
+    Server(int serverPort) {
         this.serverPort = serverPort;
     }
 
-    public List<ServerWorker> getWorkerList() {
+    List<ServerWorker> getWorkerList() {
         return workerList;
     }
 
@@ -34,7 +36,7 @@ public class Server extends Thread {
         }
     }
 
-    public void removeWorker(ServerWorker serverWorker) {
+    void removeWorker(ServerWorker serverWorker) {
         workerList.remove(serverWorker);
     }
 }

@@ -1,3 +1,5 @@
+package ltd.vblago;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.HashSet;
@@ -9,11 +11,12 @@ public class ServerWorker extends Thread {
     private final Server server;
     private String login = null;
     private OutputStream outputStream;
-    private HashSet<String> topicSet = new HashSet<>();
+    private HashSet<String> topicSet;
 
-    public ServerWorker(Server server, Socket clientSocket) {
+    ServerWorker(Server server, Socket clientSocket) {
         this.server = server;
         this.clientSocket = clientSocket;
+        topicSet = new HashSet<>();
     }
 
     @Override
@@ -64,7 +67,7 @@ public class ServerWorker extends Thread {
         }
     }
 
-    public boolean isMemberOfTopic(String topic) {
+    private boolean isMemberOfTopic(String topic) {
         return topicSet.contains(topic);
     }
 
@@ -113,7 +116,7 @@ public class ServerWorker extends Thread {
         clientSocket.close();
     }
 
-    public String getLogin() {
+    private String getLogin() {
         return login;
     }
 
@@ -122,7 +125,7 @@ public class ServerWorker extends Thread {
             String login = tokens[1];
             String password = tokens[2];
 
-            if ((login.equals("guest") && password.equals("guest")) || (login.equals("jim") && password.equals("jim")) ) {
+            if ((login.equals("user1") && password.equals("user1")) || (login.equals("user2") && password.equals("user2")) ) {
                 String msg = "ok login\n";
                 outputStream.write(msg.getBytes());
                 this.login = login;
@@ -150,6 +153,7 @@ public class ServerWorker extends Thread {
             } else {
                 String msg = "error login\n";
                 outputStream.write(msg.getBytes());
+                System.err.println("Login failed for " + login);
             }
         }
     }
